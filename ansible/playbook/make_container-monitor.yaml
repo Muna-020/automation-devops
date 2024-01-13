@@ -1,0 +1,30 @@
+---
+- name: Deploy Monitoring Stack
+  hosts: 103.150.191.16
+  tasks:
+
+    # - name: Create Docker network
+    #   docker_network:
+    #     name: monitoring
+    #     state: present
+
+    # - name: Create Monitoring directory
+    #   file:
+    #     path: "/home/ahmad/monitoring"
+    #     state: directory
+
+
+    # - name: Create file Docker Compose
+    #   template:
+    #     src: ./credential/docker-compose.yaml.j2
+    #     dest: /home/ahmad/docker-compose.yaml
+
+    # - name: Create file Prometheus
+    #   template:
+    #     src: ./credential/prometheus.yml.j2
+    #     dest: /home/ahmad/monitoring/prometheus.yml        
+
+    - name: Create and start services
+      shell: docker compose up -d
+       
+    

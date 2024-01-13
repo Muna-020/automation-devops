@@ -1,0 +1,15 @@
+---
+- name: Deploy Frontend Stack
+  hosts: 103.175.216.25
+  become: true
+  tasks:
+
+    - name: Create file Docker Compose
+      template:
+        src: ./credential/frontend-service.j2
+        dest: /home/ahmad/docker-compose.yaml
+   
+    - name: Create and start services
+      shell: docker compose up -d
+       
+    

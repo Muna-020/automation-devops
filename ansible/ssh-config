@@ -1,0 +1,3 @@
+[biznet]
+103.175.216.25 ansible_user=ahmad
+103.150.191.16 ansible_user=ahmad

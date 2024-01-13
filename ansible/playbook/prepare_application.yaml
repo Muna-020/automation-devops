@@ -1,0 +1,29 @@
+- name: Prepare Application Frontend
+  hosts: 103.175.216.25
+  become: true
+  tasks:
+
+    # - name: Clone Git Repository
+    #   git:
+    #     repo: https://github.com/dumbwaysdev/dumbflix-frontend.git
+    #     dest: /home/ahmad/dumbflix-frontend/
+    #   become: true
+
+    # - name: Install Node.js 14 
+    #   apt:
+    #     name: "nodejs=14.*"
+    #     state: present
+
+    - name: Create file Dockerfile
+      template:
+        src: ./credential/Dockerfile-fe.j2
+        dest: /home/ahmad/dumbflix-frontend/Dockerfile     
+
+    - name: Setup Config frontend
+      lineinfile:
+        path: /home/ahmad/dumbflix-frontend/src/config/api.js
+        regexp: 'http://localhost:5000/api/v1'
+        line: 'https://api-moonflo.studentdumbways.my.id/api/v1'
+        backup: yes
+    
+

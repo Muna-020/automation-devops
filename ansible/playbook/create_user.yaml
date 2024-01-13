@@ -1,0 +1,27 @@
+- hosts: biznet
+  become: yes
+
+  tasks:
+    - name: Create user 'ahmad'
+      user:
+        name: ahmad
+        password: "{{ 'ahmad123' | password_hash('sha512') }}"
+        shell: /bin/bash
+        groups: sudo
+        state: present
+        system: true
+        createhome: yes
+        
+    - name: Setup sshd_config
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PasswordAuthentication'
+        line: 'PasswordAuthentication yes'
+        backup: yes
+      notify: Restart SSH Service
+
+  handlers:
+    - name: Restart SSH Service
+      service:
+        name: sshd
+        state: restarted      

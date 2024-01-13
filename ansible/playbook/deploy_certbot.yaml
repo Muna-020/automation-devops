@@ -1,0 +1,45 @@
+---
+- name: Generate Certbot for SSL
+  hosts: 103.150.191.16
+  become: true
+  
+  tasks:
+  #  - name: Install Certbot via snap
+  #    become: true
+  #    become_user: root
+  #    shell: |
+  #     sudo snap install --classic certbot &&
+  #     sudo ln -s /snap/bin/certbot /usr/bin/certbot &&
+  #     sudo snap set certbot trust-plugin-with-root=ok &&
+  #     sudo snap install certbot-dns-cloudflare
+  #    register: certbot_install_result
+  #    changed_when: "certbot_install_result.rc == 0"
+
+    # - name: Create Certbot configuration directory
+    #   file:
+    #     path: "/home/ahmad/.secrets"
+    #     state: directory
+
+    # - name: Create Certbot Cloudflare credentials file
+    #   template:
+    #     src: ./credential/cloudflare.ini.j2  
+    #     dest: "/home/ahmad/.secrets/cloudflare.ini"
+    #     mode: 0400
+
+   - name: Run Certbot to obtain certificates
+     command: >
+        certbot certonly
+        --dns-cloudflare
+        --dns-cloudflare-credentials /home/ahmad/.secrets/cloudflare.ini
+        --agree-tos
+        --non-interactive
+        --email ahmad.munazar18@gmail.com
+        --domains *.studentdumbways.my.id
+     become: true
+     become_user: root
+     timeout: 60
+
+
+
+
+

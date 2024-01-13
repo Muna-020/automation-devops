@@ -1,0 +1,18 @@
+---
+- name: Configure Nginx Reverse Proxy
+  hosts: 103.150.191.16
+  become: true
+  tasks:
+    # - name: Create Nginx directory
+    #   file:
+    #     path: "/home/ahmad/nginxRproxy"
+    #     state: directory
+
+    - name: Create Nginx configuration for Reverseproxy
+      template:
+        src: ./credential/rProxy.conf.j2
+        dest: /home/ahmad/nginxRproxy/rProxy.conf
+
+
+  
+
